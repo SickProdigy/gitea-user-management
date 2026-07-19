@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gitea User Management</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Gitea User Management</h1>
+      <p>{{ gitea_base_url }}</p>
+    </div>
+    <form method="post" action="/logout">
+      <button class="secondary" type="submit">Sign out</button>
+    </form>
+  </header>
+
+  <main class="layout">
+    <section class="toolbar" aria-label="User actions">
+      <div class="pager">
+        <button id="prevPage" class="secondary" type="button">Previous</button>
+        <span id="pageLabel">Page 1</span>
+        <button id="nextPage" class="secondary" type="button">Next</button>
+      </div>
+      <label class="filter-label" for="filterInput">Filter visible users</label>
+      <input id="filterInput" type="search" placeholder="username, email, website, location">
+      <button id="refreshUsers" class="secondary" type="button">Refresh</button>
+    </section>
+
+    <section class="bulk-panel" aria-label="Bulk actions">
+      <div class="bulk-title">
+        <h2>Bulk Actions</h2>
+        <span id="selectedCount">0 selected</span>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" id="restricted" checked> Is restricted</label>
+        <label><input type="checkbox" id="disableOrg" checked> Disable org creation</label>
+        <label><input type="checkbox" id="clearWebsite" checked> Clear website</label>
+        <label><input type="checkbox" id="clearLocation" checked> Clear location</label>
+        <label><input type="checkbox" id="keepEmailPrivate" checked> Private visibility</label>
+        <label><input type="checkbox" id="zeroRepoLimit"> Max repos = 0</label>
+        <label><input type="checkbox" id="prohibitLogin"> Prohibit login</label>
+      </div>
+      <div class="actions">
+        <button id="dryRun" class="secondary" type="button">Dry Run</button>
+        <button id="applyBulk" type="button">Apply to Selected</button>
+      </div>
+    </section>
+
+    <section class="table-wrap" aria-label="Gitea users">
+      <table>
+        <thead>
+          <tr>
+            <th><input id="selectAll" type="checkbox" aria-label="Select all visible users"></th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Website</th>
+            <th>Location</th>
+            <th>Created</th>
+            <th>Last Login</th>
+          </tr>
+        </thead>
+        <tbody id="usersBody">
+          <tr><td colspan="8" class="empty">Loading users...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="output" aria-live="polite">
+      <h2>Result</h2>
+      <pre id="resultBox">Ready.</pre>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

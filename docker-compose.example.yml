@@ -1,0 +1,17 @@
+services:
+  gitea-user-management:
+    build: ./gitea-user-management
+    container_name: gitea-user-management
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      # Localhost-only by default. Access with an SSH tunnel if this runs on a remote host:
+      # ssh -L 4099:127.0.0.1:4099 user@server
+      - "127.0.0.1:4099:8080"
+    networks:
+      homelab:
+
+networks:
+  homelab:
+    external: true

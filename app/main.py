@@ -150,8 +150,8 @@ def build_edit_payload(user: dict[str, Any], actions: BulkActions) -> dict[str, 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request) -> HTMLResponse:
     if auth_enabled() and not request.session.get("authenticated"):
-        return templates.TemplateResponse("login.html", {"request": request})
-    return templates.TemplateResponse("index.html", {"request": request, "gitea_base_url": GITEA_BASE_URL})
+        return templates.TemplateResponse(request, "login.html")
+    return templates.TemplateResponse(request, "index.html", {"gitea_base_url": GITEA_BASE_URL})
 
 
 @app.post("/login")
